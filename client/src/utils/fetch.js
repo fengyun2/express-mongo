@@ -2,7 +2,7 @@
 * @Author: fengyun2
 * @Date:   2016-11-10 11:30:40
  * @Last Modified by: fengyun2
- * @Last Modified time: 2016-11-17 22:48:30
+ * @Last Modified time: 2016-11-17 23:03:18
 */
 
 /**
@@ -60,7 +60,7 @@ function getDataFormat(url, data) {
 export const fetchRequest = (url, options) => {
   let ori_options = {
     method: 'GET',
-    mode: "no-cors",
+    mode: "cors",
     headers: {
       'Accept': 'application/json',
       // 'Content-Type': 'application/json'

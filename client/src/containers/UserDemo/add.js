@@ -42,7 +42,7 @@ class AddUser extends Component {
     }).then(data => {
       console.log('添加用户成功')
       setTimeout(() => {
-        // browserHistory.push('/user_list')
+        browserHistory.push('/user_list')
       }, 3000)
     }).catch(err => {
       console.error('err >>>', err)
