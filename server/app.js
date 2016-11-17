@@ -17,12 +17,17 @@ import './db'
 // 实例化
 const app = express()
 
+// 设置时区(貌似不生效)
+process.env.TZ = 'Asia/Shanghai'
+
 // for raw data
-app.use(function(req, res, next){
+app.use((req, res, next) => {
   if (req.is('text/*')) {
     req.text = ''
     req.setEncoding('utf8')
-    req.on('data', function(chunk){ req.text += chunk })
+    req.on('data', chunk => {
+      req.text += chunk
+    })
     req.on('end', next)
   } else {
     next()
@@ -30,12 +35,12 @@ app.use(function(req, res, next){
 })
 
 // 支持跨域
-const half_hour = 3600000 / 2
 app.use(require('cors')())
 
 // 设置session
+const half_hour = 3600000 / 2
 app.use(session({
-  store: new MongoStore({mongooseConnection: mongoose.connection}),
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
   secret: 'ly',
   resave: false,
   saveUninitialized: true,
@@ -46,13 +51,8 @@ app.use(session({
 }))
 
 app.use(logger('dev'))
-app.use(bodyParser.json({
-  limit: '1mb'
-}))
-app.use(bodyParser.urlencoded({
-  extended: true,
-  limit: '1mb'
-}))
+app.use(bodyParser.json({limit: '1mb'}))
+app.use(bodyParser.urlencoded({extended: true, limit: '1mb'}))
 app.use(cookieParser())
 
 app.use(helmet.hidePoweredBy())
@@ -62,14 +62,15 @@ app.use(helmet.frameguard())
 
 const debug = require('debug')('ly-expres-mongo')
 
+app.use((req, res, next) => {
+
+  next()
+})
+
 app.use(apiRouter)
-// app.all('/', (req, res, next) => {
-//   res.end('Hello World!')
-//   next()
-// })
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   var err = new Error('Not Found')
   err.status = 404
   next(err)
@@ -78,27 +79,17 @@ app.use(function (req, res, next) {
 // error handlers development error handler will print stacktrace
 if (app.get('env') === 'development') {
   app
-    .use(function (err, req, res, next) {
+    .use((err, req, res, next) => {
       res.status(err.status || 500)
-      res.send({
-        message: err.message,
-        error: err
-      })
-      // res.end(`some error: ${err.status}`)
-      // next()
+      res.send({message: err.message, error: err})
     })
 }
 
 // production error handler no stacktraces leaked to user
 app
-  .use(function (err, req, res, next) {
+  .use((err, req, res, next) => {
     res.status(err.status || 500)
-    res.send({
-      message: err.message,
-      error: err
-    })
-    // res.end(`some error: ${err.status}`)
-    // next()
+    res.send({message: err.message, error: err})
   })
 
 

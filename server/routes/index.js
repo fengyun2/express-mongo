@@ -5,16 +5,15 @@ import {userController} from '../controllers'
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
-  logger.log(`method: ${req.method}`)
   res.send('Hello Index Page')
 })
 
 router.get('/user', (req, res, next) => {
-  logger.log(`user page`)
   res.send('Hello User Page')
 })
 
-router.all('/user/add', userController.add)
-router.all('/user/lists', userController.lists)
+router.post('/user/add', userController.add)
+router.get('/user/lists', userController.lists)
+router.get('/user/delete', userController.remove)
 
 export default router

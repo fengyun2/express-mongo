@@ -8,19 +8,13 @@ class BaseDao {
   }
 
   add(data, callback) {
-
-    console.log('create data: ', data)
-
     this
       .model
       .create(data, err => {
-
         console.log('create err ===> ', err)
-
         if (err) {
           return callback(err)
         }
-
         return callback(null)
       })
   }
@@ -43,21 +37,17 @@ class BaseDao {
         if (err) {
           return callback(err, null)
         }
-
         return callback(null, data)
       })
   }
 
   getAll(callback) {
-
-    console.log('Dao getAll')
-
     this
       .model
       .find({}, (err, model) => {
-        if (err)
+        if (err) {
           return callback(err, null)
-
+        }
         return callback(null, model)
       })
   }
@@ -66,9 +56,9 @@ class BaseDao {
     this
       .model
       .find(query, fields, opt, (err, model) => {
-        if (err)
+        if (err) {
           return callback(err, null)
-
+        }
         return callback(null, model)
       })
   }
@@ -77,9 +67,9 @@ class BaseDao {
     this
       .model
       .findOne(query, fields, opt, (err, model) => {
-        if (err)
+        if (err) {
           return callback(err, null)
-
+        }
         return callback(null, model)
       })
   }
@@ -90,9 +80,9 @@ class BaseDao {
       .remove({
         _id: id
       }, (err, raw) => {
-        if (err)
+        if (err) {
           return callback(err, null)
-
+        }
         return callback(null, raw)
       })
   }
@@ -104,7 +94,6 @@ class BaseDao {
         if (err) {
           return callback(err, null)
         }
-
         return callback(null, sumCount)
       })
   }
@@ -116,7 +105,6 @@ class BaseDao {
         if (err) {
           return callback(err, null)
         }
-
         return callback(null, sumCount)
       })
   }
@@ -130,7 +118,6 @@ class BaseDao {
         if (err) {
           return callback(err, null)
         }
-
         return callback(null, raw)
       })
   }
@@ -144,7 +131,6 @@ class BaseDao {
         if (err) {
           return callback(err, null)
         }
-
         return callback(null, doc)
       })
   }
@@ -169,7 +155,6 @@ class BaseDao {
         if (err) {
           return callback(err, null)
         }
-
         return callback(null, docs)
       })
   }

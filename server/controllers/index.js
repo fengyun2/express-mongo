@@ -1,6 +1,4 @@
-import userController, {add, lists} from './user'
-
-console.log('userController controller >>> ', add, lists)
+import userController from './user'
 
 module.exports = {
   userController
