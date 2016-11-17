@@ -1,0 +1,18 @@
+{
+  "apps": [{
+    "name": "most",
+    "cwd": ".",
+    "script": "src/index.js",
+    "autorestart": false,
+    "watch": true,
+    "node_args": "--harmony",
+    "exec_interpreter": "babel-node",
+    "exec_mode": "cluster_mode",
+    "min_uptime": "60s",
+    "max_restarts": 0,
+    "error_file": "./pm2-err.log",
+    "out_file": "./pm2-out.log",
+    "pid_file": "./pm2.pid",
+    "log_date_format": "YYYY - MM - DD HH: mm Z"
+  }]
+}
