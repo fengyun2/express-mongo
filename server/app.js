@@ -8,6 +8,9 @@ const MongoStore = require('connect-mongo')(session)
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import multer from 'multer'
+import helmet from 'helmet'
+import csurf from 'csurf'
+import apiRouter from './routes'
 
 import './db'
 
@@ -43,17 +46,27 @@ app.use(session({
 }))
 
 app.use(logger('dev'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json({
+  limit: '1mb'
+}))
+app.use(bodyParser.urlencoded({
+  extended: true,
+  limit: '1mb'
+}))
 app.use(cookieParser())
+
+app.use(helmet.hidePoweredBy())
+app.use(helmet.frameguard())
+
+// app.use(csurf()) // 防止跨站请求伪造
 
 const debug = require('debug')('ly-expres-mongo')
 
-app.all('/', (req, res, next) => {
-  console.log(`receive /`)
-  res.end('Hello World!')
-  next()
-})
+app.use(apiRouter)
+// app.all('/', (req, res, next) => {
+//   res.end('Hello World!')
+//   next()
+// })
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -67,8 +80,12 @@ if (app.get('env') === 'development') {
   app
     .use(function (err, req, res, next) {
       res.status(err.status || 500)
-      res.end(`some error: ${err.status}`)
-      next()
+      res.send({
+        message: err.message,
+        error: err
+      })
+      // res.end(`some error: ${err.status}`)
+      // next()
     })
 }
 
@@ -76,8 +93,12 @@ if (app.get('env') === 'development') {
 app
   .use(function (err, req, res, next) {
     res.status(err.status || 500)
-    res.end(`some error: ${err.status}`)
-    next()
+    res.send({
+      message: err.message,
+      error: err
+    })
+    // res.end(`some error: ${err.status}`)
+    // next()
   })
 
 

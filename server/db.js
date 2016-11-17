@@ -5,9 +5,9 @@ import config from 'config'
 import logger from './utils/logger'
 
 // if (config.has('mongodb')) {
-const {host, port, db} = config.get('mongodb')
+const {host, port, dbName} = config.get('mongodb')
 
-const connectionString = `mongodb://${host}:${port}/${db}`
+const connectionString = `mongodb://${host}:${port}/${dbName}`
 
 const options = {
   db: {
@@ -18,13 +18,14 @@ const options = {
     poolSize: 20
   }
 }
+// mongodb://127.0.0.1/blog
 
 mongoose.connect(connectionString, options, (err, res) => {
   if (err) {
-    logger.error(`[mongoose log] Error connecting to ${db} error: ${err.message}`)
+    logger.error(`[mongoose log] Error connecting to ${dbName} error: ${err.message}`)
     return process.exit(1)
   }
-  return logger.log(`[mongoose log] Successfully connected to ${db}`)
+  return logger.log(`[mongoose log] Successfully connected to ${dbName}`)
 })
 
 const mongodb = mongoose.connection

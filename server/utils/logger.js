@@ -11,6 +11,6 @@ log4js.configure({
 })
 
 const logger = log4js.getLogger('cheese')
-logger.setLevel('ERROR')
+// logger.setLevel('ERROR')
 
 export default logger
