@@ -13,7 +13,7 @@ router.get('/user', (req, res, next) => {
 })
 
 router.post('/user/add', userController.add)
-router.get('/user/lists', userController.lists)
-router.get('/user/delete', userController.remove)
+router.all('/user/lists', userController.lists)
+router.all('/user/delete', userController.remove)
 
 export default router

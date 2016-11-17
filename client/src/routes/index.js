@@ -2,7 +2,7 @@
  * @Author: fengyun2
  * @Date:   2016-10-22 14:39:34
  * @Last Modified by: fengyun2
- * @Last Modified time: 2016-11-13 23:11:20
+ * @Last Modified time: 2016-11-17 21:09:37
  */
 
 /**
@@ -59,22 +59,32 @@ export default [{
       })
     }
   }, {
-    // path: 'add_cate',
-    // // component: require('CONTAINERS/Category/add').default
-    // getComponent(nextState, cb) {
-    //   require.ensure([], (require) => {
-    //     cb(null, require('CONTAINERS/Category/add').default)
-    //   })
-    // }
+    path: 'nav',
+    // component: require('CONTAINERS/Category/add').default
+    getComponent(nextState, cb) {
+      require.ensure([], (require) => {
+        cb(null, require('CONTAINERS/NavBarDemo').default)
+      })
+    }
   }, {
-    // path: 'antmobile',
-    // // component: require('CONTAINERS/Category/add').default
-    // getComponent(nextState, cb) {
-    //   require.ensure([], (require) => {
-    //     cb(null, require('CONTAINERS/AntDesignMobile').default)
-    //   })
-    // }
-  }, {
+    path: 'add_user',
+    // component: require('CONTAINERS/Category/add').default
+    getComponent(nextState, cb) {
+      require.ensure([], (require) => {
+        cb(null, require('CONTAINERS/UserDemo/add').default)
+      })
+    }
+  },
+  {
+    path: 'user_list',
+    // component: require('CONTAINERS/Category/add').default
+    getComponent(nextState, cb) {
+      require.ensure([], (require) => {
+        cb(null, require('CONTAINERS/UserDemo').default)
+      })
+    }
+  },
+  {
     path: '*',
     // component: require('CONTAINERS/NotFound').default
     getComponent(nextState, cb) {

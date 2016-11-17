@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import BarTab from 'COMPONENTS/BarTab'
 // import BarNav from 'COMPONENTS/BarNav'
 // import BarTab from 'COMPONENTS/BarTab'
 // import NavLink from 'COMPONENTS/NavLink'
@@ -35,7 +36,7 @@ const App = (props) => {
       style={{height: '100%'}}
     >
       <div className={pageClassNames}>
-        <h1>APP</h1>
+        <BarTab {...props} />
         <div className="content">
           {props.children}
         </div>
