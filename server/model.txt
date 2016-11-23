@@ -1,0 +1,6 @@
+function model(doc, fields, skipId) {
+    if (!(this instanceof model)) {
+      return new model(doc, fields, skipId);
+    }
+    Model.call(this, doc, fields, skipId);
+  }

@@ -14,15 +14,14 @@ import {
   ButtonArea
 } from 'react-weui'
 
-class AddUser extends Component {
+class AddArticle extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      nick_name: '',
-      account: '',
-      password: '',
-      email: ''
+      title: '',
+      sub_title: '',
+      content: ''
     }
 
     this.handleSubmit = this
@@ -35,7 +34,7 @@ class AddUser extends Component {
 
   handleSubmit(e) {
     console.log(`this.state >>>`, this.state)
-    fetchRequest('http://localhost:3000/user/add', {
+    fetchRequest('http://localhost:3000/article/add', {
       method: 'POST',
       mode: 'cors',
       data: this.state
@@ -46,7 +45,7 @@ class AddUser extends Component {
         console.log('error', data.message)
       }
       setTimeout(() => {
-        // browserHistory.push('/user_list')
+        // browserHistory.push('/article_list')
       }, 3000)
     }).catch(err => {
       console.error('err >>>', err)
@@ -69,29 +68,6 @@ class AddUser extends Component {
     this.setState({
       [inputName]: inputValue
     })
-
-    // const {type} = event.target.dataset
-    // console.log(`event.target: `, event.target.dataset)
-    // const _this = ReactDOM.findDOMNode(this.refs[type])
-    // let {employed} = this.state.user_info
-    // if (_this.checked) { // 选中
-    //   if (!employed.includes(type)) {
-    //     employed.push(type)
-    //     this.setState({
-    //       user_info: Object.assign({}, this.state.user_info, {employed})
-    //     })
-    //   }
-    // } else {
-    //   if (employed.includes(type)) {
-    //     // employed.push(type)
-    //     employed.remove(type)
-    //     this.setState({
-    //       user_info: Object.assign({}, this.state.user_info, {employed})
-    //     })
-    //   }
-    // }
-
-    // this.forceUpdate()
   }
 
   render() {
@@ -100,61 +76,41 @@ class AddUser extends Component {
         <Form>
           <FormCell>
             <CellHeader>
-              <Label>NickName:
+              <Label>Title:
               </Label>
             </CellHeader>
             <CellBody>
               <Input
                 type="text"
-                name="nick_name"
-                placeholder="Enter you nickName"
-                value={this.state.nick_name}
+                name="title"
+                placeholder="Enter Article Title"
+                value={this.state.title}
                 onChange={this.handleChange}/>
             </CellBody>
           </FormCell>
 
-          <FormCell vcode>
+          <FormCell>
             <CellHeader>
-              <Label>Phone:
+              <Label>SubTitle:
               </Label>
             </CellHeader>
             <CellBody>
-              <Input type="tel" name="account" placeholder="Enter you tellphone" onChange={this.handleChange}/>
+              <Input type="text" name="sub_title" placeholder="Enter SubTitle" onChange={this.handleChange}/>
             </CellBody>
             <CellFooter>
-              <Button type="default">Send</Button>
             </CellFooter>
           </FormCell>
 
           <FormCell>
             <CellHeader>
-              <Label>Email:
+              <Label>Content:
               </Label>
             </CellHeader>
             <CellBody>
-              <Input type="email" name="email" placeholder="Enter you email" onChange={this.handleChange} />
+              <Input type="text" name="content" placeholder="Enter Content" onChange={this.handleChange} />
             </CellBody>
           </FormCell>
 
-          <FormCell>
-            <CellHeader>
-              <Label>PassWord:
-              </Label>
-            </CellHeader>
-            <CellBody>
-              <Input type="password" name="password" placeholder="Enter you password" onChange={this.handleChange} />
-            </CellBody>
-          </FormCell>
-
-          <FormCell>
-            <CellHeader>
-              <Label>RePassWord:
-              </Label>
-            </CellHeader>
-            <CellBody>
-              <Input type="password" name="repassword" placeholder="Enter you repassword" onChange={this.handleChange}/>
-            </CellBody>
-          </FormCell>
         </Form>
 
         <ButtonArea>
@@ -165,4 +121,4 @@ class AddUser extends Component {
   }
 }
 
-export default AddUser
+export default AddArticle

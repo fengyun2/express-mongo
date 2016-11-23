@@ -1,4 +1,4 @@
-import {userDao} from '../dao'
+import { userDao } from '../dao'
 
 const add = (req, res, next) => {
   let {data} = req.body
@@ -10,8 +10,17 @@ const add = (req, res, next) => {
     console.log(`/user/add: `, data)
     userDao.add(data, err => {
       if (err) {
-         req.session.current_user = void 0
-        return res.json({success: false, message: '添加用户失败'})
+        let message = '添加用户失败'
+        req.session.current_user = void 0
+        if (!!err.errors) {
+          message = ''
+          for (let key in err.errors) {
+            if (!!err.errors[key]) {
+              message += `|${err.errors[key].message}`
+            }
+          }
+        }
+        return res.json({ success: false, message, err })
       }
       // 为了简单操作, 在这里添加用户的时候, 直接设置新添加的用户为当前用户了
       req.session.current_user = data.nick_name
@@ -20,10 +29,10 @@ const add = (req, res, next) => {
       req.session.cookie.maxAge = half_hour
       console.dir(req.session)
 
-      return res.json({success: true, message: '添加用户成功'})
+      return res.json({ success: true, message: '添加用户成功', err })
     })
   } else {
-    return res.json({success: false, message: '您还没填写任何用户信息'})
+    return res.json({ success: false, message: '您还没填写任何用户信息', err: null })
   }
 }
 
@@ -32,8 +41,8 @@ const lists = (req, res, next) => {
   console.log(`/current_user: ${req.session.current_user}`)
   console.dir(req.session)
   userDao.getAll((err, data) => {
-    if (err) return res.json({success: false, message: '查询所有用户失败'})
-    return res.json({success: true, message: '获取所有用户成功', data: data})
+    if (err) return res.json({ success: false, message: '查询所有用户失败' })
+    return res.json({ success: true, message: '获取所有用户成功', data: data })
   })
 }
 
@@ -43,15 +52,15 @@ const remove = (req, res, next) => {
   if (!!req.query) {
     id = req.query.id
   } else {
-    return res.json({success: false, message: '该用户id缺失'})
+    return res.json({ success: false, message: '该用户id缺失' })
   }
   console.log(`id: ${id}`)
   if (!id) {
-    return res.json({success: false, message: '该用户id缺失'})
+    return res.json({ success: false, message: '该用户id缺失' })
   }
   userDao.deleteById(id, err => {
-    if (err) return res.json({success: false, message: '删除该用户失败'})
-    return res.json({success: true, message: '删除该用户成功'})
+    if (err) return res.json({ success: false, message: '删除该用户失败' })
+    return res.json({ success: true, message: '删除该用户成功' })
   })
 }
 

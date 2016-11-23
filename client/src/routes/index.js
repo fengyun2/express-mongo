@@ -1,8 +1,8 @@
 /*
  * @Author: fengyun2
  * @Date:   2016-10-22 14:39:34
- * @Last Modified by: fengyun2
- * @Last Modified time: 2016-11-17 21:09:37
+ * @Last Modified by:   baby
+ * @Last Modified time: 2016-11-23 12:18:44
  */
 
 /**
@@ -36,21 +36,6 @@ export default [{
       })
     }
   }, {
-    path: 'article',
-    // component: require('CONTAINERS/Note').default,
-    onEnter(nextState, replaceState) { // nextState 表示要进入的下一个路径 replaceState 表示替换路由状态的方法
-      console.log('enter note component')
-        // replaceState(null, `/brand/${nextState.params.id}`)
-    },
-    onLeave(prevState) {
-      console.log('leave note component')
-    },
-    getComponent(nextState, cb) {
-      require.ensure([], (require) => {
-        cb(null, require('CONTAINERS/ArticleDemo').default)
-      })
-    }
-  }, {
     path: 'cell',
     // component: require('CONTAINERS/Product').default
     getComponent(nextState, cb) {
@@ -81,6 +66,38 @@ export default [{
     getComponent(nextState, cb) {
       require.ensure([], (require) => {
         cb(null, require('CONTAINERS/UserDemo').default)
+      })
+    }
+  },
+  {
+    path: 'add_article',
+    // component: require('CONTAINERS/Note').default,
+    onEnter(nextState, replaceState) { // nextState 表示要进入的下一个路径 replaceState 表示替换路由状态的方法
+      console.log('enter article component')
+        // replaceState(null, `/brand/${nextState.params.id}`)
+    },
+    onLeave(prevState) {
+      console.log('leave article component')
+    },
+    getComponent(nextState, cb) {
+      require.ensure([], (require) => {
+        cb(null, require('CONTAINERS/ArticleDemo/add').default)
+      })
+    }
+  },
+  {
+    path: 'articles',
+    // component: require('CONTAINERS/Note').default,
+    onEnter(nextState, replaceState) { // nextState 表示要进入的下一个路径 replaceState 表示替换路由状态的方法
+      console.log('enter articles component')
+        // replaceState(null, `/brand/${nextState.params.id}`)
+    },
+    onLeave(prevState) {
+      console.log('leave articles component')
+    },
+    getComponent(nextState, cb) {
+      require.ensure([], (require) => {
+        cb(null, require('CONTAINERS/ArticleDemo').default)
       })
     }
   },

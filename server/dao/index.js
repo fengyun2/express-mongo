@@ -11,6 +11,7 @@ import config from 'config'
  *  ***********************************/
 
 import {userModel} from '../models'
+import {articleModel} from '../models'
 
 /**************************************
  *
@@ -18,12 +19,13 @@ import {userModel} from '../models'
  *
  *  ***********************************/
 import UserDao from './UserDao'
-
+import ArticleDao from './ArticleDao'
 /**************************************
  *
- *  导出接口(创建Entity)
+ *  导出接口(导出包含model的操作)
  *
  *  ***********************************/
 module.exports = {
-  userDao: new UserDao(userModel)
+  userDao: new UserDao(userModel),
+  articleDao: new ArticleDao(articleModel)
 }

@@ -35,5 +35,9 @@ mongodb.on('error', err => logger.error(`mongoose connection error: ${err.messag
 mongodb.once('open', () => {
   return logger.info('mongoose open success')
 })
+
+mongodb.on('disconnected', () => {
+  logger.error(`mongoose connection error: ${err.message}`)
+})
 // }
 export default mongodb
