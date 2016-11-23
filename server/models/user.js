@@ -77,6 +77,6 @@ UserSchema.pre('remove', next => {
 
 
 // 第三个参数决定集合是否以复数的形式
-const userModel = mongoose.model('user', UserSchema, 'user')
+const userModel = mongoose.model('User', UserSchema, 'user')
 
 export default userModel

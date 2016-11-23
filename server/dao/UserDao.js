@@ -8,7 +8,6 @@ import BaseDao from './BaseDao'
 class UserDao extends BaseDao {
   constructor(model) {
     super(model)
-    // this.model = model
   }
 }
 

@@ -1,15 +1,23 @@
-import { articleDao } from '../dao'
+import {articleDao} from '../dao'
 
-const add = (req, res, next) => {
+const add = async(req, res, next) => {
   let {data} = req.body
   if (!data) {
     data = req.body
   }
   if (!!data) {
+    if (!(!!req.session && !!req.session.current_user)) {
+      data.user = '582d5549a9f6132730539a16'
+    }
     console.log(`/article/add: `, data)
-    articleDao.add(data, err => {
-      if (err) {
-        let message = '添加文章失败'
+
+    let message = '添加文章'
+    try {
+      message += '成功'
+      let article = await articleDao.add(data)
+      return res.json({success: true, message, err: null})
+    } catch (err) {
+        message += '失败'
         if (!!err.errors) {
           message = ''
           for (let key in err.errors) {
@@ -18,44 +26,69 @@ const add = (req, res, next) => {
             }
           }
         }
-        return res.json({ success: false, message, err })
-      }
-
-      return res.json({ success: true, message: '添加文章成功', err })
-    })
+        return res.json({success: false, message, err})
+    }
   } else {
-    return res.json({ success: false, message: '您还没填写任何文章信息', err: null })
+    return res.json({success: false, message: '您还没填写任何文章信息', err: null})
   }
 }
 
-const lists = (req, res, next) => {
+const lists = async(req, res, next) => {
   console.log(`/article/lists`)
-  articleDao.getAll((err, data) => {
-    if (err) return res.json({ success: false, message: '查询所有文章失败' })
-    return res.json({ success: true, message: '获取所有文章成功', data: data })
-  })
+
+  let message = '查询所有文章'
+  try {
+    message += '成功'
+    let articles  = await articleDao.getAll()
+    return res.json({success: true, message, data: articles})
+  } catch (err) {
+    message += '失败'
+    return res.json({success: false, message})
+  }
 }
 
-const remove = (req, res, next) => {
+const remove = async(req, res, next) => {
   console.log(`article delete`)
   let id = 0
   if (!!req.query) {
     id = req.query.id
   } else {
-    return res.json({ success: false, message: '该文章id缺失' })
+    return res.json({success: false, message: '该文章id缺失'})
   }
   console.log(`id: ${id}`)
   if (!id) {
-    return res.json({ success: false, message: '该文章id缺失' })
+    return res.json({success: false, message: '该文章id缺失'})
   }
-  articleDao.deleteById(id, err => {
-    if (err) return res.json({ success: false, message: '删除该文章失败' })
-    return res.json({ success: true, message: '删除该文章成功' })
-  })
+
+  let message = '删除该文章'
+
+  try {
+    message += '成功'
+    let article = await articleDao.deleteById(id)
+
+    return res.json({success: true, message})
+  } catch (err) {
+    message += '失败'
+    return res.json({success: false, message})
+  }
+}
+
+const articleAndUser = async(req, res, next) => {
+  try {
+    let articles = await articleDao
+    .getArticleAndUser()
+
+    // console.log(`articles: `, articles)
+    return res.json({success: true, message: '查询文章/评论和用户成功', data: articles})
+  } catch (err) {
+    return res.json({success: false, message: '查询文章/评论以及用户失败', err})
+  }
+
 }
 
 module.exports = {
   add,
   lists,
-  remove
+  remove,
+  articleAndUser
 }

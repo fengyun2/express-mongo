@@ -54,6 +54,6 @@ ArticleSchema.pre('remove', next => {
 
 
 // 第三个参数决定集合是否以复数的形式
-const articleModel = mongoose.model('article', ArticleSchema, 'article')
+const articleModel = mongoose.model('Article', ArticleSchema, 'article')
 
 export default articleModel

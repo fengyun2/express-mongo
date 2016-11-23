@@ -7,27 +7,13 @@ class BaseDao {
     this.model = model
   }
 
-  add(data, callback) {
-    this
-      .model
-      .create(data, err => {
-        console.log('create err ===> ', err)
-        if (err) {
-          return callback(err)
-        }
-        return callback(null)
-      })
+  add(data) {
+    // 注意, `create` 方法后面不能再带 `exec` 方法了, 可能它内部已经封装好了`exec`方法
+    return this.model.create(data)
   }
 
-  getById(id, callback) {
-    this
-      .model
-      .findById(id, (err, data) => {
-        if (err) {
-          return callback(err, null)
-        }
-        return callback(null, data)
-      })
+  getById(id) {
+    return this.model.findById(id).exec()
   }
 
   getByIdAndUpdate(id, update, callback) {
@@ -41,15 +27,8 @@ class BaseDao {
       })
   }
 
-  getAll(callback) {
-    this
-      .model
-      .find({}, (err, model) => {
-        if (err) {
-          return callback(err, null)
-        }
-        return callback(null, model)
-      })
+  getAll(options = {}) {
+    return this.model.find({}).exec()
   }
 
   getByQuery(query, fields, opt, callback) {
@@ -74,17 +53,8 @@ class BaseDao {
       })
   }
 
-  deleteById(id, callback) {
-    this
-      .model
-      .remove({
-        _id: id
-      }, (err, raw) => {
-        if (err) {
-          return callback(err, null)
-        }
-        return callback(null, raw)
-      })
+  deleteById(id) {
+    return this.model.remove({_id: id}).exec()
   }
 
   getSumCount(callback) {
@@ -109,17 +79,23 @@ class BaseDao {
       })
   }
 
-  updateById(id, doc, callback) {
-    this
-      .model
-      .update({
-        _id: id
-      }, doc, (err, raw) => {
-        if (err) {
-          return callback(err, null)
-        }
-        return callback(null, raw)
-      })
+  updateById(id, doc) {
+
+    return this.model.update({_id: id}, doc).exec()
+
+    /**
+     * callback 方式
+     */
+    // this
+    //   .model
+    //   .update({
+    //     _id: id
+    //   }, doc, (err, raw) => {
+    //     if (err) {
+    //       return callback(err, null)
+    //     }
+    //     return callback(null, raw)
+    //   })
   }
 
   findByIdAndUpdate(id, fields, callback) {

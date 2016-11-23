@@ -11,6 +11,10 @@ import multer from 'multer'
 import helmet from 'helmet'
 import csurf from 'csurf'
 import apiRouter from './routes'
+import tool from './utils/tools'
+
+// 原生的promise替代mongoose的promise
+mongoose.Promise = Promise
 
 import './db'
 

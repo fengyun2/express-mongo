@@ -29,6 +29,7 @@ router.get('/article', (req, res, next) => {
 router.post('/article/add', articleController.add)
 router.all('/article/lists', articleController.lists)
 router.all('/article/delete', articleController.remove)
+router.all('/article/list_user', articleController.articleAndUser)
 
 /**
  * 评论操作

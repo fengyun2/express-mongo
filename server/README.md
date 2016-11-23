@@ -25,3 +25,19 @@ curl -g "http://localhost:3000/graphql?query={user(id:\"1\"){id,name}}"
 curl -g "http://localhost:3000/user/lists"
 ```
 
+##升级
+
+1. 使用 `populate` 实现了 mongodb的连表查询(ArticleDao)
+
+2. 使用 原生的promise替代mongoose的promise
+
+```js
+mongoose.Promise = Promise
+```
+3. models 中的 `mongoose.model('User', UserSchema, 'user')` 第一个 参数得大写, 要不关联查询会报 `User can not found`
+
+4. `controllers`, `dao`, `models` 由 `callback` 改为 `async/await`
+
+##注意
+
+1. 注意, this.model 的 `create` 方法后面不能再带 `exec` 方法了, 可能它内部已经封装好了`exec`方法
