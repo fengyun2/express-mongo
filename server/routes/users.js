@@ -1,3 +1,7 @@
+/**
+ * 已废弃[2016/11/23]
+ *
+ */
 import express from 'express'
 import logger from '../utils/logger'
 import {userController} from '../controllers'

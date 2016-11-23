@@ -2,7 +2,7 @@
  * @Author: fengyun2
  * @Date:   2016-10-22 14:39:34
  * @Last Modified by:   baby
- * @Last Modified time: 2016-11-23 12:18:44
+ * @Last Modified time: 2016-11-23 18:30:51
  */
 
 /**
@@ -98,6 +98,22 @@ export default [{
     getComponent(nextState, cb) {
       require.ensure([], (require) => {
         cb(null, require('CONTAINERS/ArticleDemo').default)
+      })
+    }
+  },
+  {
+    path: 'add_comment',
+    // component: require('CONTAINERS/Note').default,
+    onEnter(nextState, replaceState) { // nextState 表示要进入的下一个路径 replaceState 表示替换路由状态的方法
+      console.log('enter comment component')
+        // replaceState(null, `/brand/${nextState.params.id}`)
+    },
+    onLeave(prevState) {
+      console.log('leave comment component')
+    },
+    getComponent(nextState, cb) {
+      require.ensure([], (require) => {
+        cb(null, require('CONTAINERS/CommentDemo/add').default)
       })
     }
   },

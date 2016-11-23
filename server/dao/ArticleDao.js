@@ -6,8 +6,28 @@
 import BaseDao from './BaseDao'
 
 class ArticleDao extends BaseDao {
-  constructor (model) {
+  constructor(model) {
     super(model)
+  }
+  addComment(comment, callback) {
+    console.log(`comment: >>>`, comment)
+    this
+      .getById(comment.article_id, (err, res) => {
+        if (err) {
+          return callback(err, null)
+        }
+
+        let comments = res.comments
+        comments.push(comment)
+
+        this.updateById(comment.article_id, {comments: comments}, (err, data) => {
+          if (err) {
+            return callback(err, null)
+          }
+          return callback(null, data)
+        })
+      })
+
   }
 }
 

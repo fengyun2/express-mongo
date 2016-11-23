@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { browserHistory } from 'react-router'
 import {fetchRequest} from '../../utils/fetch'
-import {Article} from 'react-weui'
+import {Article, ButtonArea, Button} from 'react-weui'
 import Page from 'COMPONENTS/page'
 import iconSrc from './images/icon.png'
 
@@ -9,6 +9,7 @@ class ArticleDemo extends Component {
   constructor (props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
+
     this.state = {
       articles: []
     }
@@ -54,7 +55,15 @@ class ArticleDemo extends Component {
 }
 
 const ArticleItem = (props) => {
-  const {item} = props
+  const {item, history} = props
+
+  console.log(`ArticleItem history >>>`)
+  // console.log(browserHistory)
+  function addComment () {
+    // console.log(item)
+    browserHistory.push({pathname: '/add_comment', state: {article_id: item._id}})
+  }
+
   return (
     <section>
       <h3>{item.title}</h3>
@@ -62,9 +71,10 @@ const ArticleItem = (props) => {
       <p>
         {item.content}
       </p>
-      <p>
         {/* <img src={iconSrc} /> */}
-      </p>
+      <ButtonArea>
+        <Button onClick={addComment}>添加评论</Button>
+      </ButtonArea>
     </section>
   )
 }

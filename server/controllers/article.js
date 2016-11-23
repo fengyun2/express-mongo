@@ -10,7 +10,6 @@ const add = (req, res, next) => {
     articleDao.add(data, err => {
       if (err) {
         let message = '添加文章失败'
-        req.session.current_article = void 0
         if (!!err.errors) {
           message = ''
           for (let key in err.errors) {
@@ -31,7 +30,6 @@ const add = (req, res, next) => {
 
 const lists = (req, res, next) => {
   console.log(`/article/lists`)
-  console.dir(req.session)
   articleDao.getAll((err, data) => {
     if (err) return res.json({ success: false, message: '查询所有文章失败' })
     return res.json({ success: true, message: '获取所有文章成功', data: data })

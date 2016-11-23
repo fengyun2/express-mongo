@@ -11,12 +11,12 @@ const ArticleSchema = new Schema({
   content: { type: String, default: '', trim: true },
   top: {type: Number, default: 0},
   user: { type: ObjectId, ref: 'User' }, // 外联
-  comments: {
+  comments: [{
     content: { type: String, default: '', trim: true },
     user: { type: ObjectId, ref: 'User' },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now }
-  },
+  }],
   image: {
     cdnUri: { type: String, default: '' },
     files: [String]
