@@ -9,6 +9,8 @@ const add = async(req, res, next) => {
     if (!(!!req.session && !!req.session.current_user)) {
       data.user = '582d5549a9f6132730539a16'
     }
+    console.log(`session >>>`)
+    console.dir(req.session)
     console.log(`/article/add: `, data)
 
     let message = '添加文章'

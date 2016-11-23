@@ -19,9 +19,9 @@ const add = async(req, res, next) => {
 
       // 为了简单操作, 在这里添加用户的时候, 直接设置新添加的用户为当前用户了
       req.session.current_user = data.nick_name
-      const half_hour = 3600000 / 2
-      req.session.cookie.expires = new Date(Date.now() + half_hour)
-      req.session.cookie.maxAge = half_hour
+      // const half_hour = 3600000 / 2 * 100000
+      // req.session.cookie.expires = new Date(Date.now() + half_hour)
+      // req.session.cookie.maxAge = half_hour
       console.dir(req.session)
 
       return res.json({ success: true, message, err: null })
@@ -36,6 +36,7 @@ const add = async(req, res, next) => {
           }
         }
       }
+      console.error(message)
       return res.json({ success: false, message, err })
     }
   } else {
