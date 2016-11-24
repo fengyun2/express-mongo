@@ -25,9 +25,12 @@ import routes from 'ROUTES'
 
 // import injectTapEventPlugin from 'react-tap-event-plugin'
 // injectTapEventPlugin()
-window.addEventListener('load', () => {
-  FastClick.attach(document.body)
-})
+
+if ('addEventListener' in document) {
+  document.addEventListener('DOMContentLoaded', () => {
+    FastClick.attach(document.body)
+  }, false)
+}
 
 
 render(
