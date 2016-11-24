@@ -61,10 +61,12 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
+    // path: '/',
+    domain: 'localhost',
     // secure: false,
     // maxAge: half_hour
     secure: false,
-    expires: false,
+    // expires: false,
     maxAge: null
   }
 }))

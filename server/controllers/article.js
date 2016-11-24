@@ -38,6 +38,9 @@ const add = async(req, res, next) => {
 const lists = async(req, res, next) => {
   console.log(`/article/lists`)
 
+  console.log(`session >>>`)
+  console.dir(req.session)
+
   let message = '查询所有文章'
   try {
     message += '成功'
