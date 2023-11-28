@@ -24,7 +24,7 @@
   "dependencies": {
     "@types/node": "^6.0.46",
     "@types/react": "^0.14.44",
-    "antd-mobile": "^0.9.8",
+    "antd-mobile": "^5.0.0",
     "babel-polyfill": "^6.16.0",
     "classnames": "^2.2.5",
     "express": "^4.14.0",
