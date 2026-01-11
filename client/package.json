@@ -39,7 +39,7 @@
     "react-immutable-render-mixin": "^0.9.7",
     "react-pull-to-refresh": "^1.0.6",
     "react-redux": "^4.4.5",
-    "react-router": "^2.8.1",
+    "react-router": "^6.30.2",
     "react-router-redux": "^4.0.6",
     "react-tap-event-plugin": "^1.0.0",
     "react-weui": "^0.4.1",
